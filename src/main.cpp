@@ -16,9 +16,9 @@
 
 // Where is all began...
 int main(int argv, char** args){
-    const std::string GAME_VERSION = "0.0.2_1a";
+    const std::string GAME_VERSION = "0.0.1_1a";
 
-    std::string title = "Lost In This World - v" + GAME_VERSION;
+    std::string title = "PaperCraft - v" + GAME_VERSION;
     Game game(800, 480, title);
     game.init();
     game.loop();
