@@ -9,9 +9,13 @@
 
 class World{
     public:
+        World();
+        void render(SDL_Renderer *renderer);
+        void tick();
 
     private:
         std::vector<Chunk> worldChunks;
+        Chunk *tempChunk;
 };
 
 

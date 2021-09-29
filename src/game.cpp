@@ -37,16 +37,20 @@ void Game::init(){
     //SDL_ShowCursor(SDL_DISABLE);
 
 #if _WIN32
-    levelTextures = new Texture(cwd + "res\\atlas.png", 16, 16);
+    worldTextures = new Texture(cwd + "res\\atlas.png", 16, 16);
     entityTextures = new Texture(cwd + "res\\entityAtlas.png", 8, 8);
     fontTextures = new Texture(cwd + "res\\fontAtlas.png", 8, 8);
 #else
-    levelTextures = new Texture(cwd + "res/atlas.png", 16, 16);
+    worldTextures = new Texture(cwd + "res/atlas.png", 16, 16);
     entityTextures = new Texture(cwd + "res/entityAtlas.png", 8, 8);
     fontTextures = new Texture(cwd + "res/fontAtlas.png", 8, 8);
 #endif
 
+    worldTextures->load(renderer);
+    entityTextures->load(renderer);
+    fontTextures->load(renderer);
 
+    world = new World();
 }
 
 void Game::loop(){
@@ -82,13 +86,16 @@ void Game::render(){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
     
-
+    world->tick();
+    world->render(renderer);
 
 
     SDL_RenderPresent(renderer);
 }
 
 Game::~Game(){
+    delete world;
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

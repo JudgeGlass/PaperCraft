@@ -11,6 +11,10 @@ class ChunkData{
             this->isForeground = isForeground;
             this->durability = durability;
         }
+
+        byte getBlockID(){
+            return blockID;
+        }
     private:
         int durability;
         byte blockID;

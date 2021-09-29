@@ -4,7 +4,7 @@
 #include "game.hpp"
 
 /*
-    Lost In This World
+    PaperCraft
     Copyright (c) 2020-2021 Hunter Wilcox
                             Zicron Technologies
 

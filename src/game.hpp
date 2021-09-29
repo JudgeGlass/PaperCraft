@@ -7,6 +7,8 @@
 
 #include "texture.hpp"
 #include "sound.hpp"
+#include "world.hpp"
+#include "gamevars.hpp"
 
 
 class Game{
@@ -26,9 +28,7 @@ class Game{
         SDL_Window *window;
         SDL_Renderer *renderer;
 
-        Texture *entityTextures;
-        Texture *fontTextures;
-        Texture *levelTextures;
+        World *world;
 };
 
 #endif
