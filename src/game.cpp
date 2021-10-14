@@ -83,7 +83,7 @@ void Game::handleEvents(){
 }
 
 void Game::render(){
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+    SDL_SetRenderDrawColor(renderer, 0xAD, 0xD8, 0xE6, 0);
     SDL_RenderClear(renderer);
     
     world->tick();

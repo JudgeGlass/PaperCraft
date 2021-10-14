@@ -13,7 +13,7 @@ Chunk::Chunk(int x, int y, byte chunkWidth, byte chunkHeight){
 void Chunk::generate(){
     for(int x = 0; x < chunkWidth; x++){
         float n = abs(SimplexNoise::noise((float)(x+this->x*chunkWidth) / 30) * 16);
-        std::cout << "X: " << x << "\tNoise: " << n << "\tChunkHeight: " << chunkHeight - (int)n << std::endl;
+        //std::cout << "X: " << x << "\tNoise: " << n << "\tChunkHeight: " << chunkHeight - (int)n << std::endl;
         int lStart = (int)n + 120;
         for(int y = 0; y < chunkHeight; y++){
             if(y > lStart){
