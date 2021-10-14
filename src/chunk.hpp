@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <vector>
 
 #include "gamevars.hpp"
 #include "chunkdata.hpp"

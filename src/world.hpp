@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include <memory>
 
 
 #include "chunk.hpp"
@@ -14,8 +15,8 @@ class World{
         void tick();
 
     private:
-        std::vector<Chunk> worldChunks;
-        Chunk *tempChunk;
+        std::vector<std::unique_ptr<Chunk>> worldChunks;
+        
 };
 
 
