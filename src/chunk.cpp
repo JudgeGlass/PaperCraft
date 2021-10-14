@@ -28,6 +28,48 @@ void Chunk::generate(){
             }
         }
     }
+
+    updateCollider();
+}
+
+void Chunk::updateCollider(){
+    for(int x = 0; x < chunkWidth; x++){
+        for(int y = 0; y < chunkHeight; y++){
+            if(chunkData[x + y * chunkWidth].getBlockID() != AIR){
+                ChunkData *ba = nullptr;
+                ChunkData *bb = nullptr;
+                ChunkData *bl = nullptr;
+                ChunkData *br = nullptr;
+
+                if(y - 1 >= 0)
+                    ba = &chunkData[x + (y-1) * chunkWidth];
+
+                if(y + 1 <= 255)
+                    bb = &chunkData[x + (y+1) * chunkWidth];
+
+                if((x == 0 || x == 15) && (ba->getBlockID() == AIR || bb->getBlockID() == AIR)){
+                    AABB *collider = new AABB(x * 32 + (this->x * chunkWidth * 32), y * 32, 32, 32, 0);
+                    chunkData[x + y * chunkWidth].setCollider(collider);
+                    continue;
+                }
+
+                if(x - 1 >= 0)
+                    bl = &chunkData[(x-1) + y * chunkWidth];
+                
+                if(x + 1 <= 15)
+                    br = &chunkData[(x+1) + y * chunkWidth];
+                
+                if(ba == nullptr || bb == nullptr || bl == nullptr || br == nullptr) continue;
+
+
+                if(ba->getBlockID() == AIR || bb->getBlockID() == AIR || bl->getBlockID() == AIR || br->getBlockID() == AIR){
+                    AABB *collider = new AABB(x * 32 + (this->x * chunkWidth * 32), y * 32, 32, 32, 0);
+                    chunkData[x + y * chunkWidth].setCollider(collider);
+                }
+            }
+
+        }
+    }
 }
 
 void Chunk::render(SDL_Renderer *renderer){
@@ -46,15 +88,23 @@ void Chunk::render(SDL_Renderer *renderer){
                     worldTextures->render(renderer, 0, x * 32 + xOffset + cx, y * 32 + yOffset, 2, 16);
             }
             
-            
+            if(block->getCollider() != nullptr)
+                block->getCollider()->render(renderer);
         }
     }
 }
 
 void Chunk::tick(){
-    
+    for(int i = 0; i < chunkWidth * chunkHeight; i++){
+        if(chunkData[i].getCollider() != nullptr)
+            chunkData[i].getCollider()->updatePos(xOffset, yOffset);
+    }
 
-    
+    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+    if(keystate[SDL_SCANCODE_F]){
+        chunkData[4 + 128 * 16] = ChunkData(AIR, true, true, 0, nullptr);
+        updateCollider();
+    }
 }
 
 

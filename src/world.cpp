@@ -14,12 +14,21 @@ World::World(){
 void World::render(SDL_Renderer *renderer){
     
     for(auto &c: worldChunks){
+        if(c->getX() * 16 + xOffset > 800 && c->getX() * 16 + xOffset < 0){
+            continue;
+        }
         c->render(renderer);
     }
-    drawString(5, 5, "PaperCraft", 0xFFFFFF, 2, fontTextures, renderer);
+    drawString(7, 7, "PaperCraft - by JudgeGlass", 0x000000, 2, fontTextures, renderer);
+    drawString(5, 5, "PaperCraft - by JudgeGlass", 0xFFFFFF, 2, fontTextures, renderer);
+    drawString(5, 20, std::to_string(fps), 0xFFFFFF, 2, fontTextures, renderer);
 }
 
 void World::tick(){
+    for(auto &c: worldChunks){
+        
+        c->tick();
+    }
     
     const Uint8 *keystate = SDL_GetKeyboardState(NULL);
     if(keystate[SDL_SCANCODE_A]){

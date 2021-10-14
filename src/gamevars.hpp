@@ -8,6 +8,8 @@ typedef unsigned char byte;
 inline int xOffset;
 inline int yOffset;
 
+inline int fps;
+
 
 inline Texture *entityTextures;
 inline Texture *fontTextures;

@@ -18,6 +18,10 @@ class ChunkData{
             return blockID;
         }
 
+        void setCollider(AABB *collider){
+            this->collider = collider;
+        }
+
         AABB* getCollider(){
             return collider;
         }

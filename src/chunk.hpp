@@ -19,6 +19,11 @@ class Chunk {
         void render(SDL_Renderer *renderer);
         void tick();
         void generate();
+        void updateCollider();
+
+        int getX(){
+            return x;
+        }
     private:
         int x;
         int y;
