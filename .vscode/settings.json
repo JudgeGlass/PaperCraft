@@ -71,6 +71,9 @@
         "random": "cpp",
         "fstream": "cpp",
         "sstream": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "ranges": "cpp"
     }
 }

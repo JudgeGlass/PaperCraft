@@ -2,7 +2,7 @@
 #include "font.hpp"
 
 World::World(){
-    tempChunk = new Chunk(0, 0, 16, 16);
+    tempChunk = new Chunk(0, 0, 16, 255);
     tempChunk->generate();
 }
 
@@ -12,5 +12,5 @@ void World::render(SDL_Renderer *renderer){
 }
 
 void World::tick(){
-
+    tempChunk->tick();
 }

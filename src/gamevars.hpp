@@ -5,6 +5,9 @@
 
 typedef unsigned char byte;
 
+inline int xOffset;
+inline int yOffset;
+
 
 inline Texture *entityTextures;
 inline Texture *fontTextures;

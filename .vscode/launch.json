@@ -9,14 +9,14 @@
             "name": "g++.exe - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/PaperCraft",
+            "program": "${workspaceFolder}\\bin\\PaperCraft.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "/bin/",
+            "cwd": "C:\\msys64\\mingw64\\bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "/bin/gdb",
+            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

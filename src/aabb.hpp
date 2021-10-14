@@ -53,6 +53,10 @@ class AABB{
             return y;
         }
 
+        uint8_t getID(){
+            return id;
+        }
+
         void render(SDL_Renderer *renderer){
             SDL_Rect outline;
             outline.x = x;

@@ -3,9 +3,11 @@
 
 #include <SDL2/SDL.h>
 #include <stdlib.h>
+#include <cstdlib>
 
 #include "gamevars.hpp"
 #include "chunkdata.hpp"
+#include "SimplexNoise.h"
 
 
 class Chunk {
