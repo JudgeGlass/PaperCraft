@@ -23,5 +23,10 @@ static void drawString(int x, int y, std::string text, int color, int scale, Tex
     }
 }
 
+static void drawStringShadowed(int x, int y, std::string text, int color, int scale, Texture *fontTexture, SDL_Renderer *renderer){
+    drawString(x + 2, y + 2, text, 0x000000, scale, fontTextures, renderer);
+    drawString(x, y, text, color, scale, fontTextures, renderer);
+}
+
 
 #endif

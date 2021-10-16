@@ -55,10 +55,10 @@ void Game::init(){
 
 void Game::loop(){
     while(!quit){
+        SDL_GetMouseState(&mouseX, &mouseY);
+        
         int start = SDL_GetTicks();
-        int startFps = SDL_GetPerformanceCounter();
-
-    
+        int startFps = SDL_GetPerformanceCounter();   
 
         
         handleEvents();

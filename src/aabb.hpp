@@ -58,17 +58,19 @@ class AABB{
         }
 
         void render(SDL_Renderer *renderer){
-            SDL_Rect outline;
-            outline.x = x;
-            outline.y = y;
-            outline.w = width;
-            outline.h = height;
+            if(showHitbox){
+                SDL_Rect outline;
+                outline.x = x;
+                outline.y = y;
+                outline.w = width;
+                outline.h = height;
 
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-            
-            SDL_RenderDrawRect(renderer, &outline);
+                SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+                
+                SDL_RenderDrawRect(renderer, &outline);
 
-            //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+                //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            }
         }
     private:
         int x;

@@ -12,7 +12,7 @@ Chunk::Chunk(int x, int y, byte chunkWidth, byte chunkHeight){
 
 void Chunk::generate(){
     for(int x = 0; x < chunkWidth; x++){
-        float n = abs(SimplexNoise::noise((float)(x+this->x*chunkWidth) / 30) * 16);
+        float n = abs(SimplexNoise::noise((float)(x+this->x*chunkWidth + ((float)rand() / (RAND_MAX))) / 30) * 16);
         //std::cout << "X: " << x << "\tNoise: " << n << "\tChunkHeight: " << chunkHeight - (int)n << std::endl;
         int lStart = (int)n + 120;
         for(int y = 0; y < chunkHeight; y++){
@@ -74,6 +74,12 @@ void Chunk::updateCollider(){
 
 void Chunk::render(SDL_Renderer *renderer){
     for(int x = 0; x < chunkWidth; x++){
+
+        if(x == 0 || x == 16){
+            SDL_RenderDrawLine(renderer, x+xOffset+(this->x * chunkWidth * 32), 3000, x+xOffset+(this->x * chunkWidth * 32), -3000);
+        }
+
+
         for(int y = 0; y < chunkHeight; y++){
             ChunkData *block = &chunkData[x + y * chunkWidth];
             byte id = block->getBlockID();
@@ -90,6 +96,23 @@ void Chunk::render(SDL_Renderer *renderer){
             
             if(block->getCollider() != nullptr)
                 block->getCollider()->render(renderer);
+        }
+    }
+
+
+
+
+    //Some lightmap test code
+    if(this->x == 1){
+        for(int x = 0; x < chunkWidth; x++){
+            for(int y = 0; y < chunkHeight; y++){
+                if(chunkData[x + y * chunkWidth].getBlockID() == AIR){
+                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                }else{
+                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                }
+                SDL_RenderDrawPoint(renderer, x + 5, (255+y) + 50);
+            }
         }
     }
 }
