@@ -70,6 +70,8 @@ void Game::loop(){
         SDL_Delay(13.66666f - elapsedMS);
         int endFps = SDL_GetPerformanceCounter();
         fps = 1 / ((endFps - startFps) / (float)SDL_GetPerformanceFrequency());
+
+        mouseButton1Clicked = false;
     }
 }
 
@@ -78,6 +80,17 @@ void Game::handleEvents(){
     while(SDL_PollEvent(&e)){
         if(e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE){
             quit = true;
+        }
+
+        if(e.key.keysym.sym == SDLK_F11){
+            SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+            SDL_Delay(200);
+        }
+
+        if(e.type == SDL_MOUSEBUTTONDOWN){
+            if(e.button.button == SDL_BUTTON_LEFT){
+                mouseButton1Clicked = true;
+            }
         }
     }
 }

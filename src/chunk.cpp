@@ -98,23 +98,6 @@ void Chunk::render(SDL_Renderer *renderer){
                 block->getCollider()->render(renderer);
         }
     }
-
-
-
-
-    //Some lightmap test code
-    if(this->x == 1){
-        for(int x = 0; x < chunkWidth; x++){
-            for(int y = 0; y < chunkHeight; y++){
-                if(chunkData[x + y * chunkWidth].getBlockID() == AIR){
-                    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                }else{
-                    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-                }
-                SDL_RenderDrawPoint(renderer, x + 5, (255+y) + 50);
-            }
-        }
-    }
 }
 
 void Chunk::tick(){
@@ -128,6 +111,10 @@ void Chunk::tick(){
         chunkData[4 + 128 * 16] = ChunkData(AIR, true, true, 0, nullptr);
         updateCollider();
     }
+}
+
+void Chunk::setBlock(byte x, byte y, ChunkData block){
+    chunkData[x + y * chunkWidth] = block;
 }
 
 

@@ -8,12 +8,14 @@ typedef unsigned char byte;
 inline int xOffset;
 inline int yOffset;
 
-inline int mouseX;
-inline int mouseY;
+inline int mouseX = 0;
+inline int mouseY = 0;
 
 inline int fps;
+inline int currentChunkIndex;
 
 inline bool showHitbox = true;
+inline bool mouseButton1Clicked = false;
 
 
 inline Texture *entityTextures;

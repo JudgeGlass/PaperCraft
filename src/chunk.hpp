@@ -21,6 +21,16 @@ class Chunk {
         void generate();
         void updateCollider();
 
+        ChunkData* getChunkData(){
+            return chunkData;
+        }
+
+        ChunkData getBlock(byte x, byte y){
+            return chunkData[x + y * chunkWidth];
+        }
+
+        void setBlock(byte x, byte y, ChunkData block);
+
         int getX(){
             return x;
         }

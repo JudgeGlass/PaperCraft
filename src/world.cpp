@@ -2,7 +2,7 @@
 #include "font.hpp"
 
 World::World(){
-    
+    srand(time(0));
     for(int x = -16; x < 16; x++){
         //Chunk *c = new Chunk(x, 0, 16, 255);
         worldChunks.push_back(std::make_unique<Chunk>(x, 0, 16, 255));
@@ -17,7 +17,24 @@ void World::render(SDL_Renderer *renderer){
         if(c->getX() * 512 + xOffset + 512 > 0 && c->getX() * 512 + xOffset < 800){
             c->render(renderer);
         }
+
+        if(c->getX() == currentChunkIndex){
+            int chunkWidth = 16;
+            int chunkHeight = 255;
+            for(int x = 0; x < chunkWidth; x++){
+                for(int y = 0; y < chunkHeight; y++){
+                    if(c->getChunkData()[x + y * chunkWidth].getBlockID() == AIR){
+                        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+                    }else{
+                        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+                    }
+                    SDL_RenderDrawPoint(renderer, x + 5 + (c->getX() * 16), (255+y) + 50);
+                }
+            }
+        }
     }
+
+    
 
     drawStringShadowed(5, 5, "PaperCraft - by JudgeGlass", 0xFFFFFF, 2, fontTextures, renderer);
     drawString(5, 20, std::to_string(fps), 0xFFFFFF, 2, fontTextures, renderer);
@@ -50,14 +67,21 @@ void World::tick(){
         showHitbox = !showHitbox;
     }
 
-    int chunkX = (mouseX - xOffset) - ((mouseX - xOffset) % 512);
+    int chunkIndex = (mouseX - xOffset) - ((mouseX - xOffset) % 512);
 
-    if(mouseX - xOffset < 0) chunkX -= 512;
+    if(mouseX - xOffset < 0) chunkIndex -= 512;
 
-    chunkX /= 512;
+    chunkIndex /= 512;
+    currentChunkIndex = chunkIndex;
+    
+    int chunkX = (mouseX - xOffset) - (chunkIndex * 512);
+    chunkX -= chunkX % 32;
+    chunkX /= 32;
 
-    std::cout << "CX: " << chunkX << "\tMX:" << mouseX << "\tXOFF: " << xOffset << "\tMOD: " << (mouseX - xOffset % 512) << std::endl;
-    if(SDL_GetMouseState(NULL, NULL) & SDL_BUTTON(0)){
-        
+    int chunkY = ((mouseY - yOffset) - ((mouseY - yOffset) % 32)) / 32;
+
+    if(mouseButton1Clicked){
+        worldChunks[currentChunkIndex+16]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, 0, nullptr));
+        worldChunks[currentChunkIndex+16]->updateCollider();
     }
 }

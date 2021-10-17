@@ -14,6 +14,10 @@ class World{
         void render(SDL_Renderer *renderer);
         void tick();
 
+        std::vector<std::unique_ptr<Chunk>>* getChunks(){
+            return &worldChunks;
+        }
+
     private:
         std::vector<std::unique_ptr<Chunk>> worldChunks;
         
