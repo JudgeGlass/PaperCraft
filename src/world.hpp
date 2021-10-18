@@ -7,6 +7,7 @@
 
 
 #include "chunk.hpp"
+#include "shapes.hpp"
 
 class World{
     public:

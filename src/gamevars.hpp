@@ -10,6 +10,8 @@ inline int yOffset;
 
 inline int mouseX = 0;
 inline int mouseY = 0;
+inline int cursorX = 0;
+inline int cursorY = 0;
 
 inline int fps;
 inline int currentChunkIndex;

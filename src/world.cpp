@@ -28,13 +28,13 @@ void World::render(SDL_Renderer *renderer){
                     }else{
                         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                     }
-                    SDL_RenderDrawPoint(renderer, x + 5 + (c->getX() * 16), (255+y) + 50);
+                    SDL_RenderDrawPoint(renderer, x + 5, (255+y) + 50);
                 }
             }
         }
     }
 
-    
+    drawRectangle(renderer, cursorX, cursorY, 32, 32, 0xFFFFFF, false);
 
     drawStringShadowed(5, 5, "PaperCraft - by JudgeGlass", 0xFFFFFF, 2, fontTextures, renderer);
     drawString(5, 20, std::to_string(fps), 0xFFFFFF, 2, fontTextures, renderer);
@@ -78,7 +78,13 @@ void World::tick(){
     chunkX -= chunkX % 32;
     chunkX /= 32;
 
+    cursorX = mouseX - ((mouseX - xOffset) % 32);
+    if(mouseX - xOffset < 0) cursorX-=32;
+    cursorY = mouseY - ((mouseY - yOffset) % 32);
+
     int chunkY = ((mouseY - yOffset) - ((mouseY - yOffset) % 32)) / 32;
+
+    
 
     if(mouseButton1Clicked){
         worldChunks[currentChunkIndex+16]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, 0, nullptr));
