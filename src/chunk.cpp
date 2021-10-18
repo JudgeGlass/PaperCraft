@@ -119,5 +119,5 @@ void Chunk::setBlock(byte x, byte y, ChunkData block){
 
 
 Chunk::~Chunk(){
-   //delete []chunkData;
+   delete []chunkData;
 }

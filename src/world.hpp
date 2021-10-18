@@ -5,13 +5,15 @@
 #include <vector>
 #include <memory>
 
-
 #include "chunk.hpp"
 #include "shapes.hpp"
+#include "player.hpp"
+#include "maths.hpp"
 
 class World{
     public:
         World();
+        ~World();
         void render(SDL_Renderer *renderer);
         void tick();
 
@@ -21,7 +23,7 @@ class World{
 
     private:
         std::vector<std::unique_ptr<Chunk>> worldChunks;
-        
+        Player *player;
 };
 
 

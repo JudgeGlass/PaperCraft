@@ -8,6 +8,7 @@ World::World(){
         worldChunks.push_back(std::make_unique<Chunk>(x, 0, 16, 255));
     }
 
+    player = new Player();
     yOffset -= 120 * 32;
 }
 
@@ -18,7 +19,7 @@ void World::render(SDL_Renderer *renderer){
             c->render(renderer);
         }
 
-        if(c->getX() == currentChunkIndex){
+        if(c->getX() == currentChunkIndex - 16){
             int chunkWidth = 16;
             int chunkHeight = 255;
             for(int x = 0; x < chunkWidth; x++){
@@ -34,7 +35,9 @@ void World::render(SDL_Renderer *renderer){
         }
     }
 
-    drawRectangle(renderer, cursorX, cursorY, 32, 32, 0xFFFFFF, false);
+    player->render(renderer);
+
+    drawRectangle(renderer, cursorX, cursorY, 32, 32, 0x000000, false);
 
     drawStringShadowed(5, 5, "PaperCraft - by JudgeGlass", 0xFFFFFF, 2, fontTextures, renderer);
     drawString(5, 20, std::to_string(fps), 0xFFFFFF, 2, fontTextures, renderer);
@@ -45,49 +48,21 @@ void World::tick(){
         c->tick();
     }
     
-    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-    if(keystate[SDL_SCANCODE_A]){
-        xOffset += 4;
-    }
-
-    if(keystate[SDL_SCANCODE_D]){
-        xOffset -= 4;
-    }
-
-    if(keystate[SDL_SCANCODE_S]){
-        yOffset -= 4;
-    }
-
-    if(keystate[SDL_SCANCODE_W]){
-        yOffset += 4;
-    }
-
-    if(keystate[SDL_SCANCODE_H]){
-        SDL_Delay(200);
-        showHitbox = !showHitbox;
-    }
-
-    int chunkIndex = (mouseX - xOffset) - ((mouseX - xOffset) % 512);
-
-    if(mouseX - xOffset < 0) chunkIndex -= 512;
-
-    chunkIndex /= 512;
-    currentChunkIndex = chunkIndex;
     
-    int chunkX = (mouseX - xOffset) - (chunkIndex * 512);
-    chunkX -= chunkX % 32;
-    chunkX /= 32;
-
-    cursorX = mouseX - ((mouseX - xOffset) % 32);
-    if(mouseX - xOffset < 0) cursorX-=32;
-    cursorY = mouseY - ((mouseY - yOffset) % 32);
-
-    int chunkY = ((mouseY - yOffset) - ((mouseY - yOffset) % 32)) / 32;
-
+    player->tick();
     
+    currentChunkIndex = getChunkIndexFromMouse();
+    int chunkX = mouseXtoChunkX();
+    int chunkY = mouseYtoChunkY();
+    updateCursor(&cursorX, &cursorY);
+   
 
     if(mouseButton1Clicked){
-        worldChunks[currentChunkIndex+16]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, 0, nullptr));
-        worldChunks[currentChunkIndex+16]->updateCollider();
+        worldChunks[currentChunkIndex]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, 0, nullptr));
+        worldChunks[currentChunkIndex]->updateCollider();
     }
+}
+
+World::~World(){
+    delete player;
 }

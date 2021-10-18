@@ -83,4 +83,11 @@ class AABB{
 
 };
 
+static bool checkCollision(AABB &b1, AABB &b2) {
+    if(b1.getLeft() < b2.getRight() && b1.getRight() > b2.getLeft() && b1.getTop() < b2.getBottom() && b1.getBottom() > b2.getTop()) {
+        return true;
+    }
+    return false;
+}
+
 #endif
