@@ -5,10 +5,10 @@ World::World(){
     srand(time(0));
     for(int x = -16; x < 16; x++){
         //Chunk *c = new Chunk(x, 0, 16, 255);
-        worldChunks.push_back(std::make_unique<Chunk>(x, 0, 16, 255));
+        worldChunks.push_back(std::make_unique<Chunk>(x, 0, 16, 255, &worldChunks));
     }
 
-    player = new Player();
+    player = new Player(&worldChunks);
     yOffset -= 120 * 32;
 }
 
@@ -45,7 +45,10 @@ void World::render(SDL_Renderer *renderer){
 
 void World::tick(){
     for(auto &c: worldChunks){
-        c->tick();
+        if(c->getX() * 512 + xOffset + 512 > 0 && c->getX() * 512 + xOffset < 800){
+            c->tick();
+        }
+            
     }
     
     

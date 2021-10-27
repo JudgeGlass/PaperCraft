@@ -2,14 +2,17 @@
 #define PLAYER_HPP
 
 #include <SDL2/SDL.h>
+#include <vector>
+#include <memory>
 #include "gamevars.hpp"
 #include "maths.hpp"
 #include "shapes.hpp"
 #include "aabb.hpp"
+#include "chunk.hpp"
 
 class Player{
     public:
-        Player();
+        Player(std::vector<std::unique_ptr<Chunk>> *worldChunks);
         ~Player();
         void render(SDL_Renderer *renderer);
         void tick();
@@ -18,8 +21,10 @@ class Player{
         int x;
         int y;
         AABB *collider;
-        int acc = 0;
-        int vel = 0;
+        std::vector<std::unique_ptr<Chunk>> *worldChunks;
+        float acc = 0;
+        float velX = 0;
+        float velY = 0;
         const int max = 5;
 };
 

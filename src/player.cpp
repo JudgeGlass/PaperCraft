@@ -1,9 +1,12 @@
 #include "player.hpp"
 
 
-Player::Player(){
+Player::Player(std::vector<std::unique_ptr<Chunk>> *worldChunks){
+    this->worldChunks = worldChunks;
     x = 800 / 2;
     y = 480 / 2;
+
+    collider = new AABB(x, y, 32, 32, 255);
 }
 
 void Player::render(SDL_Renderer *renderer){
@@ -12,7 +15,7 @@ void Player::render(SDL_Renderer *renderer){
 
 void Player::tick(){
 
-    std::cout << "Index: " << getChunkIndexFromPoint(x, y) << std::endl;
+    //std::cout << "Index: " << getChunkIndexFromPoint(x, y) << std::endl;
 
 
 
@@ -37,12 +40,14 @@ void Player::tick(){
         SDL_Delay(200);
         showHitbox = !showHitbox;
     }
+
+    collision();
 }
 
 void Player::collision(){
-    AABB *temp;
+    AABB *temp = new AABB(x-16, y+4, 32, 32, 255);
 
-    
+    //Chunk *chunk = 
 
 
     delete temp;

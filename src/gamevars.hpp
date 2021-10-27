@@ -3,6 +3,8 @@
 
 #include "texture.hpp"
 
+inline const std::string GAME_VERSION = "0.0.1_3a";
+
 typedef unsigned char byte;
 
 inline int xOffset;
