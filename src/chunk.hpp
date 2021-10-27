@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <vector>
+#include <memory>
 
 #include "gamevars.hpp"
 #include "chunkdata.hpp"
@@ -13,7 +14,7 @@
 
 class Chunk {
     public:
-        Chunk(int x, int y, byte chunkWidth, byte chunkHeight);
+        Chunk(int x, int y, byte chunkWidth, byte chunkHeight, std::vector<std::unique_ptr<Chunk>> *worldChunk);
         ~Chunk();
 
         void render(SDL_Renderer *renderer);
@@ -25,8 +26,8 @@ class Chunk {
             return chunkData;
         }
 
-        ChunkData getBlock(byte x, byte y){
-            return chunkData[x + y * chunkWidth];
+        ChunkData* getBlock(byte x, byte y){
+            return &chunkData[x + y * chunkWidth];
         }
 
         void setBlock(byte x, byte y, ChunkData block);
@@ -40,7 +41,7 @@ class Chunk {
         byte chunkWidth;
         byte chunkHeight;
         ChunkData *chunkData;
-
+        std::vector<std::unique_ptr<Chunk>> *worldChunks;
 };
 
 

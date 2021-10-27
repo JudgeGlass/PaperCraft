@@ -1,10 +1,11 @@
 #include "chunk.hpp"
 
-Chunk::Chunk(int x, int y, byte chunkWidth, byte chunkHeight){
+Chunk::Chunk(int x, int y, byte chunkWidth, byte chunkHeight, std::vector<std::unique_ptr<Chunk>> *worldChunks){
     this->x = x;
     this->y = y;
     this->chunkWidth = chunkWidth;
     this->chunkHeight = chunkHeight;
+    this->worldChunks = worldChunks;
 
     chunkData = (ChunkData*) malloc(sizeof(ChunkData) * (chunkWidth * chunkHeight));
     generate();
@@ -49,7 +50,10 @@ void Chunk::updateCollider(){
 
                 if((x == 0 || x == 15) && (ba->getBlockID() == AIR || bb->getBlockID() == AIR)){
                     AABB *collider = new AABB(x * 32 + (this->x * chunkWidth * 32), y * 32, 32, 32, 0);
-                    chunkData[x + y * chunkWidth].setCollider(collider);
+
+                    if(chunkData[x + y * chunkWidth].getCollider() == nullptr)
+                        chunkData[x + y * chunkWidth].setCollider(collider);
+                    
                     continue;
                 }
 
@@ -64,7 +68,8 @@ void Chunk::updateCollider(){
 
                 if(ba->getBlockID() == AIR || bb->getBlockID() == AIR || bl->getBlockID() == AIR || br->getBlockID() == AIR){
                     AABB *collider = new AABB(x * 32 + (this->x * chunkWidth * 32), y * 32, 32, 32, 0);
-                    chunkData[x + y * chunkWidth].setCollider(collider);
+                    if(chunkData[x + y * chunkWidth].getCollider() == nullptr)
+                        chunkData[x + y * chunkWidth].setCollider(collider);
                 }
             }
 
