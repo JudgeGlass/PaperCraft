@@ -1,4 +1,5 @@
 #include "chunk.hpp"
+#include "font.hpp"
 
 Chunk::Chunk(int x, int y, byte chunkWidth, byte chunkHeight, std::vector<std::unique_ptr<Chunk>> *worldChunks){
     this->x = x;
@@ -19,13 +20,13 @@ void Chunk::generate(){
         for(int y = 0; y < chunkHeight; y++){
             if(y > lStart){
                 if(y == lStart + 1)
-                    chunkData[x + y * chunkWidth] = ChunkData(GRASS, true, true, 0, nullptr);
+                    chunkData[x + y * chunkWidth] = ChunkData(GRASS, true, true, false, 0, nullptr);
                 else if(y > lStart + 1 && y < lStart + 6)
-                    chunkData[x + y * chunkWidth] = ChunkData(DIRT, true, true, 0, nullptr);
+                    chunkData[x + y * chunkWidth] = ChunkData(DIRT, true, true, false, 0, nullptr);
                 else
-                    chunkData[x + y * chunkWidth] = ChunkData(STONE, true, true, 0, nullptr);
+                    chunkData[x + y * chunkWidth] = ChunkData(STONE, true, true, false, 0, nullptr);
             }else{
-                chunkData[x + y * chunkWidth] = ChunkData(AIR, true, true, 0, nullptr);
+                chunkData[x + y * chunkWidth] = ChunkData(AIR, true, true, true, 0, nullptr);
             }
         }
     }
@@ -91,6 +92,7 @@ void Chunk::render(SDL_Renderer *renderer){
             int cx = this->x * chunkWidth * 32;
             //std::cout << cx << std::endl;
             if(id != AIR){
+                
                 if(id == DIRT)
                     worldTextures->render(renderer, 3, x * 32 + xOffset + cx, y * 32 + yOffset, 2, 16);
                 else if(id == GRASS)
@@ -101,6 +103,10 @@ void Chunk::render(SDL_Renderer *renderer){
             
             if(block->getCollider() != nullptr)
                 block->getCollider()->render(renderer);
+
+            if(this->x == 0){
+                drawString(x * 32 + xOffset + cx + 8, y * 32 + yOffset + 8, std::to_string(block->getLightLevel()), 0xFFFFFF, 1, fontTextures, renderer);
+            }
         }
     }
 }
@@ -111,11 +117,7 @@ void Chunk::tick(){
             chunkData[i].getCollider()->updatePos(xOffset, yOffset);
     }
 
-    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
-    if(keystate[SDL_SCANCODE_F]){
-        chunkData[4 + 128 * 16] = ChunkData(AIR, true, true, 0, nullptr);
-        updateCollider();
-    }
+    
 }
 
 void Chunk::setBlock(byte x, byte y, ChunkData block){

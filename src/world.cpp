@@ -61,7 +61,7 @@ void World::tick(){
    
 
     if(mouseButton1Clicked){
-        worldChunks[currentChunkIndex]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, 0, nullptr));
+        worldChunks[currentChunkIndex]->setBlock(chunkX, chunkY, ChunkData(AIR, true, true, false, 0, nullptr));
         worldChunks[currentChunkIndex]->updateCollider();
     }
 }

@@ -6,16 +6,26 @@
 
 class ChunkData{
     public:
-        ChunkData(byte blockID, bool isBreakable, bool isForeground, int durability, AABB *collider){
+        ChunkData(byte blockID, bool isBreakable, bool isForeground, bool isSky, int durability, AABB *collider){
             this->blockID = blockID;
             this->isBreakable = isBreakable;
             this->isForeground = isForeground;
+            this->isSky = isSky;
             this->durability = durability;
             this->collider = collider;
+            lightLvl = 15;
         }
 
         byte getBlockID(){
             return blockID;
+        }
+
+        void setLightLevel(byte value){
+            lightLvl = value;
+        }
+
+        byte getLightLevel(){
+            return lightLvl;
         }
 
         void setCollider(AABB *collider){
@@ -30,6 +40,9 @@ class ChunkData{
         byte blockID;
         bool isBreakable;
         bool isForeground;
+        bool isSky;
+
+        byte lightLvl;
 
         AABB *collider;
 };
