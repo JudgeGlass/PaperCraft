@@ -10,6 +10,7 @@
 #include "gamevars.hpp"
 #include "chunkdata.hpp"
 #include "SimplexNoise.h"
+#include "lighting.hpp"
 
 
 class Chunk {

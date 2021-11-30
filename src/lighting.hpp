@@ -6,8 +6,8 @@
 #include "chunkdata.hpp"
 
 static void caclcLightLevel(ChunkData *chunkData){
-    for(byte x = 0; x < 16; x++){
-        for(byte y = 0; y < 256; y++){
+    for(byte x = 0; x < 15; x++){
+        for(byte y = 0; y < 255; y++){
             byte lightLvlCurrent = chunkData[x + y * 16].getLightLevel();
             
             byte lightlvlLeft;
@@ -31,14 +31,14 @@ static void caclcLightLevel(ChunkData *chunkData){
                 lightlvlBottom = chunkData[x + (y+1) * 16].getLightLevel();
             }
 
-            if(chunkData[x + y * 16].getBlockID() != AIR){
-                 byte small = lightlvlBottom;
-                 if(lightlvlBottom > lightlvlTop) small = lightlvlTop;
-                 if(lightlvlTop > lightlvlLeft) small = lightlvlLeft;
-                 if(lightlvlLeft > lightlvlRight) small = lightlvlRight;
+            if(!chunkData[x + y * 16].getIsSky()){
+                 byte big = lightlvlBottom;
+                 if(lightlvlBottom < lightlvlTop) big = lightlvlTop;
+                 if(lightlvlTop < lightlvlLeft) big = lightlvlLeft;
+                 if(lightlvlLeft < lightlvlRight) big = lightlvlRight;
 
-
-                 chunkData[x + y * 16].setLightLevel(small - 1);
+                 
+                 chunkData[x + y * 16].setLightLevel(big - 1);
             }
         }
     }

@@ -31,6 +31,8 @@ void Chunk::generate(){
         }
     }
 
+    if(this->x == 0)
+        caclcLightLevel(chunkData);
     updateCollider();
 }
 

@@ -32,6 +32,10 @@ class ChunkData{
             this->collider = collider;
         }
 
+        bool getIsSky(){
+            return isSky;
+        }
+
         AABB* getCollider(){
             return collider;
         }
