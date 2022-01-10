@@ -29,7 +29,7 @@ void World::render(SDL_Renderer *renderer){
                     }else{
                         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                     }
-                    SDL_RenderDrawPoint(renderer, x + 5, (255+y) + 50);
+                    SDL_RenderDrawPoint(renderer, x + 5, (255+y) - 50);
                 }
             }
         }

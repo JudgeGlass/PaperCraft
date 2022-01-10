@@ -1,0 +1,19 @@
+PaperCraft
+    Copyright (c) 2020-2021 Hunter Wilcox
+                            Zicron Technologies
+                            JudgeGlass.NET
+
+    THIS IS PROPRIETARY SOFTWARE. THE FOLLOWING SOURCE
+    CODE IS NOT "FREE" AND ANY RE-DISTRIBUTION IS PROHIBITED.
+    IF YOU HAVE OBTAINED A COPY OF THIS SOURCE WITHOUT THE
+    PERMISSION OF THE ANY OF THE COPYRIGHT HOLDERS, YOU MUST
+    DELETE IT IMMEDIATELY.
+
+    Requirements:
+        - SDL 2
+        - SDL2_Image
+        - SDL2_Mixer
+        - std=c++17
+    Computer MUST support GPU acceleration / OpenGL.
+    Make sure the "res/" directory is in the same directory
+    as the main executable.
