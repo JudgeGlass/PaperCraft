@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <SDL2/SDL.h>
 #include "game.hpp"
 #include "gamevars.hpp"
 
@@ -17,6 +15,7 @@
 
 // Where is all began...
 int main(int argv, char** args){
+    std::cout << "Starting program....." << std::endl;
     std::string title = "PaperCraft - v" + GAME_VERSION;
     Game game(800, 480, title);
     game.init();

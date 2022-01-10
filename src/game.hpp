@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
