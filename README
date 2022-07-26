@@ -3,12 +3,6 @@ PaperCraft
                             Zicron Technologies
                             JudgeGlass.NET
 
-    THIS IS PROPRIETARY SOFTWARE. THE FOLLOWING SOURCE
-    CODE IS NOT "FREE" AND ANY RE-DISTRIBUTION IS PROHIBITED.
-    IF YOU HAVE OBTAINED A COPY OF THIS SOURCE WITHOUT THE
-    PERMISSION OF THE ANY OF THE COPYRIGHT HOLDERS, YOU MUST
-    DELETE IT IMMEDIATELY.
-
     Requirements:
         - SDL 2
         - SDL2_Image
